@@ -178,7 +178,7 @@ function fixFirstButtons() {
 }
 
 $(function() {
-    $('button[type="button"]').on('click', progressPanel);
+    $('button.prev-button, button.next-button').on('click', progressPanel);
     showErrors();
     updateHref();
 
