@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta name=viewport content="width=device-width, initial-scale=1">
+    <title>aria-owns="lets-make-forms-accessible"</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="{{ url_for('static', filename='js/responsive-nav.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/slides.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/collapser.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/sidebar.js') }}"></script>
+    <link href="{{ url_for('static', filename='css/style.scss.css') }}" rel="stylesheet" >
+    {% block head %}
+    {% endblock %}
+</head>
+<body>
+    <div class="site-wrap" role="presentation">
+        <div id="skip-links">
+            <a href="#content" class="skip-link">Skip to content</a>
+            <a href="#navigation" class="skip-link">Skip to navigation</a>
+        </div>
+        <header class="site-header" role="banner">
+            <h1><a href="/">aria-owns="lets-make-forms-accessible"</a></h1>
+            {% block header %}
+            {% endblock %}
+        </header>
+        <div class="site-sidebar" role="contentinfo">
+            <nav id="navigation" role="navigation" tabindex="-1">
+                <ol>
+                    <li><a href="/slide-1">Intro to Accessibility</a></li>
+                    <li><a href="/slide-2">What are WCAG and Aria?</a></li>
+                    <li><a href="/slide-3">What are Flask and Jinja?</a></li>
+                    <li><a href="/slide-4">Simple Forms</a></li>
+                    <li><a href="/slide-5">Complex Forms</a></li>
+                    <li><a href="/slide-6">Success??</a></li>
+                    <li><a href="/slide-7">ARIA and **kwargs</a></li>
+                    <li><a href="/slide-8">Back-end Validation</a></li>
+                    <li><a href="/slide-9">Front-end Validation</a></li>
+                    <li><a href="/slide-10">Resources</a></li>
+                </ol>
+            </nav>
+            {% block sidebar %}
+        {% endblock %}
+        </div>
+        <div class="site-content" role="main" id="content" tabindex="-1">
+
+            {% block content %}
+            {% endblock %}
+            <div class="slide-nav">
+                <a id="prev-slide" href="#" class="hidden prev-button">&lt;<span class="sr-only">&nbsp; Previous</span></a>
+                <button type="button" class="prev-button">&lt;<span class="sr-only">&nbsp;Previous</span></button>
+                <button type="button" class="next-button"><span class="sr-only">Next&nbsp;</span>&gt;</button>
+                <a id="next-slide" href="#" class="hidden next-button"><span class="sr-only">Next&nbsp;</span>&gt;</a>
+            </div>
+        </div>
+        <footer class="site-footer" role="contentinfo">
+            <p>&copy; 2017<script>new Date().getFullYear()>2017&&document.write("-"+new Date().getFullYear());</script>, Kat Passen and Tina Bell Vance</p>
+        {% block footer %}
+        {% endblock %}
+    </footer>
+    </div>
+</body>
+
+</html>

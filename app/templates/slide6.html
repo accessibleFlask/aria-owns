@@ -1,0 +1,29 @@
+{% extends "layout.html" %}
+    {% block header %}
+    {% endblock %}
+    {% block content %}
+        <div id="panel-one" class="current" tabindex="-1">
+            <h2>Success!</h2>
+        </div>
+        <div id="panel-two" class="hidden" tabindex="-1">
+            <h2>Success!</h2>
+            <div class="center-wrapper">
+                <span class="large">🤔</span>
+            </div>
+        </div>
+        <div id="panel-three" class="hidden" tabindex="-1">
+            <h2>Sign up for our newsletter!</h2>
+            {% from 'macros/render_flashes.html' import bad_flashes as bf %}
+            {{ bf() }}
+            <form id="newsletter-form" method="post" action="">
+                {% from 'macros/form_helpers.html' import render_inputs as build %}
+                {% for field in form %}
+                    {{ build(field, autocomplete='off') }}
+                {% endfor %}
+
+                <button type="submit">Sign me up! (ﾉ◕ヮ◕)ﾉ*:･ﾟ✧</button>
+            </form>
+        </div>
+    {% endblock %}
+    {% block footer %}
+    {% endblock %}

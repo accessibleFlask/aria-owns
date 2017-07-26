@@ -1,0 +1,6 @@
+/venv/*
+.zhistory
+.DS_Store
+*.pyc
+*.swp
+app/config/settings.cfg

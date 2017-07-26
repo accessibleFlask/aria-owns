@@ -1,0 +1,55 @@
+{% extends "layout.html" %}
+    {% block header %}
+    {% endblock %}
+    {% block content %}
+    <h2>Intro</h2>
+    <div id="panel-one" tabindex="-1" class="current">
+        <h3>Who we are</h3>
+        <ul>
+            <li>Tina Bell Vance<li>
+                <ul>
+                    <li>Senior Design Engineer at American Greetings</li>
+                    <li>Artist in her free time</li>
+                    <li>Likes taking pictures of things that could bite her</li>
+                    <li>Twitter: <a href="https://www.twitter.com/tinabellvance">@TinaBellVance</a></li>
+                    <li>Website: <a href="https://bellvance.com">https://bellvance.com</a>
+                </ul>
+            <li>Kat Passen</li>
+                <ul>
+                    <li>Software Engineer at American Greetings</li>
+                    <li>Resident accessibilty subject-matter expert</li>
+                    <li>Likes making ARIA puns</li>
+                    <li>Twitter: <a href="https://www.twitter.com/katpassen">@katpassen</a></li>
+                </ul>
+        </ul>
+    </div>
+    <div id="panel-two" tabindex="-1" class="hidden">
+        <h3>This talk</h3>
+        <ul>
+            <li>Brief accessibility intro</li>
+            <ul>
+                <li>What is accessibility</li>
+                <li>What are WCAG and ARIA</li>
+            </ul>
+            <li>What is this app, how we built it</li>
+            <ul>
+                <li>Flask</li>
+                <li>Jinja2</li>
+                <li>WTForms</li>
+            </ul>
+            <li>Follow along!</li>
+            <ul>
+                <li><a href="https://github.com/accessibleFlask/aria-owns">https://github.com/accessibleFlask/aria-owns</a></li>
+            </ul>
+        </ul>
+    </div>
+    <div id="panel-three" tabindex="-1" class="hidden">
+        <h3>Caveats</h3>
+        <ul>
+            <li>App is extremely basic, so as to focus on accessibility</li>
+            <li>In-slide examples are stripped down to focus on key points</li>
+        </ul>
+    </div>
+    {% endblock %}
+    {% block footer %}
+    {% endblock %}

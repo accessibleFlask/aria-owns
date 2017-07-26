@@ -1,0 +1,73 @@
+{% macro render_flashes() -%}
+    {%- with messages = get_flashed_messages(with_categories=true) -%}
+        {%- if messages -%}
+            <div role="alert">
+                <ul id="flashes">
+                    {%- for category, message in messages -%}
+                        {%- if category == 'decoration' -%}
+                            <li class="msg-deco">
+                                {%- if message != '' -%}
+                                    <span aria-hidden="true">{{ message }}</span>
+                                {%- endif -%}
+                            </li>
+                        {%- elif category == 'error' -%}
+                            <li class="error-msg">
+                                {{ message }}
+                            </li>
+                        {%- elif category == 'success' -%}
+                            <li class="success-msg">
+                                {{ message }}
+                            </li>
+                        {%- else -%}
+                            <li>
+                                {{ message }}
+                            </li>
+                        {%- endif -%}
+                    {%- endfor -%}
+                </ul>
+            </div>
+        {%- endif -%}
+        <script>
+            var success = $('#flashes li.success-msg');
+            if(success.length) {
+                $('#flashes').addClass('success-msg');
+            }
+        </script>
+    {%- endwith -%}
+{%- endmacro %}
+
+{% macro bad_flashes() -%}
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            <ul id="flashes">
+                {% for category, message in messages %}
+                    {% if category == 'decoration' %}
+                        <li class="msg-deco">
+                            {% if message != '' %}
+                                <span>{{ message }}</span>
+                            {% endif %}
+                        </li>
+                    {% elif category == 'error' %}
+                        <li class="error-msg">
+                            {{ message }}
+                        </li>
+                    {% elif category == 'success' %}
+                        <li class="success-msg">
+                            {{ message }}
+                        </li>
+                    {% else %}
+                        <li>
+                            {{ message }}
+                        </li>
+                    {% endif %}
+                {% endfor %}
+            </ul>
+        {% endif %}
+        <script>
+            var success = $('#flashes li.success-msg');
+            if(success.length) {
+                $('#flashes').addClass('success-msg');
+            }
+        </script>
+    {% endwith %}
+{%- endmacro %}

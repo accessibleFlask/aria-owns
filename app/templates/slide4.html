@@ -1,0 +1,65 @@
+{% extends "layout.html" %}
+    {% block header %}
+    {% endblock %}
+    {% block content %}
+        <div id="panel-one" class="current" tabindex="-1">
+            <h2>Sign up for our newsletter!</h2>
+            {% from 'macros/render_flashes.html' import render_flashes as rf %}
+            {{ rf() }}
+            <form id="newsletter-form" method="post" action="" role="form" aria-label="Newsletter form">
+                {{ form.email.label(for_='email') }}
+                {% if form.errors %}
+                    {% if form.email.errors %}
+                    <span class="error-msg" id="email-error">{{ form.email.errors[0] }}</span>
+                    {{ form.email(autocomplete='off', **{'aria-required':'true','aria-invalid':'true','aria-describedby':'email-error'}) }}
+                    {% endif %}
+                {% else %}
+                    {{ form.email(autocomplete='off', **{'aria-required':'true'}) }}
+                {% endif %}
+
+                <button type="submit">Sign me up!
+                    <span aria-hidden="true">(ﾉ◕ヮ◕)ﾉ*:･ﾟ✧</span>
+                </button>
+            </form>
+        </div>
+        <div id="panel-two" class="hidden" tabindex="-1">
+            <h2>Simple validator</h2>
+            <code class="code-wrapper">
+            {%- raw -%}
+class EmailOnlyForm(Form):
+    email = EmailField(label='Your Email',
+        validators=[
+            validators.Length(min=6, message=u'Your email address needs to be 6 or more characters.'),
+            validators.Email(message=u'The email address you entered has a problem - check for typos.')
+        ])
+                    {%- endraw -%}
+            </code>
+        </div>
+        <div id="panel-three" class="hidden" tabindex="-1">
+            <h2>Simple template</h2>
+            <code class="code-wrapper">
+                {%- raw -%}
+&lt;form id="newsletter-form" method="post" action=""&gt;
+    {{ form.email.label(for_='email') }}
+    {% if form.errors %}
+        {% if form.email.errors %}
+            &lt;span class="error-msg" id="email-error"&gt;{{ form.email.errors[0] }}&lt;/span&gt;
+            {{ form.email(autocomplete='off') }}
+        {% endif %}
+                {%- endraw -%}
+            </code>
+        </div>
+        <div id="panel-four" class="hidden" tabindex="-1">
+            <h2>Simple template</h2>
+            <code class="code-wrapper">
+                {%- raw -%}
+    {% else %}
+        {{ form.email(autocomplete='off') }}
+    {% endif %}
+&lt;/form&gt;
+                {%- endraw -%}
+            </code>
+        </div>
+    {% endblock %}
+    {% block footer %}
+    {% endblock %}

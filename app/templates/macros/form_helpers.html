@@ -1,0 +1,36 @@
+{% macro render_inputs(field) -%}
+    {# Stripped down version based on https://gist.github.com/maximebf/3986659 #}
+    {# Changes: #}
+    {# * All fields are required #}
+    {# * All fields have labels #}
+
+    {% if field.errors %}
+        <span class="error-msg" id="{{ field.name }}-error">{{ field.errors[0] }}</span>
+    {% else %}
+        {{ kwargs.pop('aria-invalid', '')|truncate(0, False, '', 0) }}
+        {{ kwargs.pop('aria-describedby', '')|truncate(0, False, '', 0) }}
+    {% endif %}
+
+    {% if field.type == 'BooleanField' %}
+        <span class="hidden" aria-hidden="true">
+            {# Still need this hidden span to suppress the None that falls out of kwargs.update() #}
+            {{ kwargs.pop('autocomplete', '')|truncate(0, False, '', 0) }}
+            {{ kwargs.pop('aria-required', '')|truncate(0, False, '', 0) }}
+            {{ kwargs.update({'required': 'required'}) }}
+        </span>
+        <label for="{{ field.id }}">
+            {{ field(class_=class_, **kwargs) }}
+            {{ field.label.text }}
+        </label>
+    {% elif field.type == 'RadioField' %}
+    <fieldset>
+        <legend>{{ field.label.text }}</legend>
+        {% for subfield in field %}
+            {{ subfield }} {{ subfield.label }}
+        {% endfor %}
+    </fieldset>
+    {% else %}
+        {{ field.label(for_=field.name) }}
+        {{ field(class_=class_, **kwargs) }}
+    {% endif %}
+{%- endmacro %}

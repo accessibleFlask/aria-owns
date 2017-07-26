@@ -1,0 +1,131 @@
+{% extends "layout.html" %}
+    {% block header %}
+    {% endblock %}
+    {% block content %}
+        <div id="panel-one" class="current" tabindex="-1">
+            <h2>ARIA</h2>
+            <h3>Overview</h3>
+            <ul>
+                <li>Plain HTML alone does not equal full accessibility</li>
+                <li>ARIA adds information to assistive technology (AT) to help with context</li>
+                <li>Our uses:</li>
+                <ul>
+                    <li>Hide cosmetic content from AT</li>
+                    <li>Provide additional context for elements in the page</li>
+                    <li>Group errors with their inputs (assist screen reader users)</li>
+                    <li>Alert AT users of errors</li>
+                </ul>
+            </ul>
+        </div>
+        <div id="panel-two" class="hidden" tabindex="-1">
+            <h2>ARIA</h2>
+            <h3>Hiding content</h3>
+            <code class="code-wrapper">
+&lt;button type="submit"&gt;Sign me up!
+&lt;span <strong><em>aria-hidden="true"</em></strong>&gt;(ﾉ◕ヮ◕)ﾉ*:･ﾟ✧&lt;/span&gt;
+&lt;/button&gt;
+            </code>
+        </div>
+        <div id="panel-three" class="hidden" tabindex="-1">
+            <h2>ARIA</h2>
+            <h3>Providing context</h3>
+            <code class="code-wrapper">
+&lt;form id="newsletter-form" method="post" action="" <strong><em>role="form" aria-label="Newsletter form"</em></strong>&gt;
+&lt;/form&gt;
+            </code>
+        </div>
+        <div id="panel-four" class="hidden" tabindex="-1">
+            <h2>ARIA</h2>
+            <h3>Errors</h3>
+            <code class="code-wrapper">
+&lt;span class="error-msg" <strong><em>id="email-error"</em></strong>&gt;Your email address needs to be 6 or more characters.&lt;/span&gt;
+&lt;label for="email"&gt;Your Email&lt;/label&gt;
+&lt;input <strong><em>aria-describedby="email-error" aria-invalid="true" aria-required="true"</em></strong> autocomplete="off" class="" id="email" name="email" type="email" value=""&gt;
+            </code>
+        </div>
+        <div id="panel-five" class="hidden" tabindex="-1">
+            <h2>ARIA</h2>
+            <h3>Alerts</h3>
+            <code class="code-wrapper">
+&lt;div class="error-header" <strong><em>role="alert"</em></strong>&gt;Please correct the errors highlighted below.&lt;/div&gt;
+            </code>
+        </div>
+        <div id="panel-six" class="hidden" tabindex="-1">
+            <h2>**kwargs</h2>
+            <ul>
+                <li>When doing normal markup, have to add ARIA by hand to each affected input</li>
+                <li>In Jinja/WTForms, can handle ARIA through **kwargs</li>
+                <li>With macros, becomes <em>even easier</em></li>
+            </ul>
+        </div>
+        <div id="panel-seven" class="hidden" tabindex="-1">
+            <h2>**kwargs</h2>
+            <code class="code-wrapper">
+                {%- raw -%}
+{# Recall our macro, now with use of **kwargs #}
+{% from 'macros/form_helpers.html' import render_inputs as build %}
+{% for field in form %}
+    {{ build(field, autocomplete='off', <strong><em>**{'aria-required':'true','aria-invalid':'true','aria-describedby':field.id+'-error'}</em></strong>) }}
+{% endfor %}
+                {%- endraw -%}
+            </code>
+        </div>
+        <div id="panel-eight" class="hidden" tabindex="-1">
+            <h2>**kwargs</h2>
+            <code class="code-wrapper">
+                {%- raw -%}
+{# Now the guts of the macro #}
+{% if field.errors %}
+    &lt;span class="error-msg" id="{{ field.name }}-error"&gt;{{ field.errors[0] }}&lt;/span&gt;
+{% else %}
+    {{ kwargs.pop('aria-invalid', '')|truncate(0, False, '', 0) }}
+    {{ kwargs.pop('aria-describedby', '')|truncate(0, False, '', 0) }}
+{% endif %}
+                {%- endraw -%}
+            </code>
+        </div>
+        <div id="panel-nine" class="hidden" tabindex="-1">
+            <h2>**kwargs</h2>
+            <code class="code-wrapper">
+                {%- raw -%}
+{% if field.type == 'BooleanField' %}
+    &lt;span class="hidden" aria-hidden="true"&gt;
+        {{ kwargs.pop('autocomplete', '')|truncate(0, False, '', 0) }}
+        {{ kwargs.pop('aria-required', '')|truncate(0, False, '', 0) }}
+        {{ kwargs.update({'required': 'required'}) }}
+    &lt;/span&gt;
+    &lt;label for="{{ field.id }}"&gt;
+        {{ field(class_=class_, **kwargs) }}
+        {{ field.label.text }}
+    &lt;/label&gt;
+                {%- endraw -%}
+            </code>
+        </div>
+        <div id="panel-ten" class="hidden" tabindex="-1">
+            <h2>**kwargs</h2>
+            <code class="code-wrapper">
+                {%- raw -%}
+{% elif field.type == 'RadioField' %}
+&lt;fieldset&gt;
+    &lt;legend&gt;{{ field.label.text }}&lt;/legend&gt;
+    {% for subfield in field %}
+        {{ subfield }} {{ subfield.label }}
+    {% endfor %}
+&lt;/fieldset&gt;
+                {%- endraw -%}
+            </code>
+        </div>
+        <div id="panel-eleven" class="hidden" tabindex="-1">
+            <h2>**kwargs</h2>
+            <code class="code-wrapper">
+                {%- raw -%}
+{% else %}
+    {{ field.label(for_=field.name) }}
+    {{ field(class_=class_, **kwargs) }}
+{% endif %}
+                {%- endraw -%}
+            </code>
+        </div>
+    {% endblock %}
+    {% block footer %}
+    {% endblock %}

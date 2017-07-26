@@ -1,0 +1,36 @@
+{% extends "layout.html" %}
+    {% block header %}
+    {% endblock %}
+    {% block content %}
+        <div id="panel-one" tabindex="-1" class="current">
+            <h2>What are WCAG and ARIA?</h2>
+            <h3>WCAG</h3>
+            <p><strong>WCAG</strong> is an acronym for Web Content Accessibility Guidelines. These are guidelines to improve web accessibility. They're divided into 3 levels:
+            <ol>
+                <li><strong>Level A</strong> - basic accessibility</li>
+                <li><strong>Level AA</strong> - addresses the biggest barriers to web accessibility for most users</li>
+                <li><strong>Level AAA</strong> - the highest level of accessibility</li>
+            </ol>
+            </p>
+        </div>
+        <div id="panel-two" tabindex="-1" class="hidden">
+            <p>The <a href="https://www.w3.org/WAI/intro/wcag">WCAG</a> guidelines are based on the <strong>POUR</strong> principle, which states that websites should be:
+        <dl class="collapsible">
+            <dt><button>Percievable</button></dt>
+            <dd class="hidden">Users should be able to percieve all content on your website, regardless of ability</dd>
+            <dt><button>Operable</button></dt>
+            <dd class="hidden">Users should be able to navigate and interact with your website, regardless of <em>how</em> (mouse, keyboard, etc)</dd>
+            <dt><button>Understandable</button></dt> 
+            <dd class="hidden">Users should be able to comprehend the content on your site. Instructions should be clear, concise, and easy to understand. Interactions should be predictable and consistent</dd>
+            <dt><button>Robust</button></dt>
+            <dd class="hidden">Your site should be standards-compliant and reliable. Cross-browser testing is encouraged as well.</dd>
+        </dl>
+    </p>
+    </div>
+    <div id="panel-three" tabindex="-1" class="hidden"> 
+    <h3>ARIA</h3>
+    <p><strong><a href="https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA">ARIA</a></strong> is the acronym for Accessible Rich Internet Applications. This is a set of attributes that make web content more accessible to users employing assistive technologies. We'll get into some basic ARIA attributes in this talk, but the basics of ARIA are that ARIA attributes can be added to markup to define things like roles (what function a specific portion of the page has, like headers or navigation), or descriptions, or error functionality.</p>
+    </div>
+    {% endblock %}
+    {% block footer %}
+    {% endblock %}

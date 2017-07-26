@@ -1,0 +1,129 @@
+{% extends "layout.html" %}
+    {% block header %}
+    {% endblock %}
+    {% block content %}
+        <div id="panel-one" class="current" tabindex="-1">
+            <h2>Avoiding repetition</h2>
+            <ul>
+                <li>Your form is usually more than one input</li>
+                <li>Repeat code is complex and hard to read</li>
+                <li>Solution: adhere to "don't repeat yourself" (DRY)</li>
+            </ul>
+        </div>
+        <div id="panel-two" class="hidden" tabindex="-1">
+            <h2>Template Macros</h2>
+            <code class="code-wrapper">
+                {%- raw -%}
+{% macro render_inputs(field) -%}
+    {% if field.errors %}
+        &lt;span class="error-msg" id="{{ field.name }}-error"&gt;{{ field.errors[0] }}&lt;/span&gt;
+    {% endif %}
+                {%- endraw -%}
+            </code>
+        </div>
+        <div id="panel-three" class="hidden" tabindex="-1">
+            <code class="code-wrapper">
+                {%- raw -%}
+    {% if field.type == 'BooleanField' %}
+        &lt;label for="{{ field.id }}"&gt;
+            {{ field(class_=class_, **kwargs) }}
+            {{ field.label.text }}
+        &lt;/label&gt;
+                {%- endraw -%}
+            </code>
+        </div>
+        <div id="panel-four" class="hidden" tabindex="-1">
+            <code class="code-wrapper">
+                {%- raw -%}
+    {% elif field.type == 'RadioField' %}
+    &lt;fieldset&gt;
+        &lt;legend&gt;{{ field.label.text }}&lt;/legend&gt;
+        {% for subfield in field %}
+            {{ subfield }} {{ subfield.label }}
+        {% endfor %}
+    &lt;/fieldset&gt;
+                {%- endraw -%}
+            </code>
+        </div>
+        <div id="panel-five" class="hidden" tabindex="-1">
+            <code class="code-wrapper">
+                {%- raw -%}
+    {% else %}
+        {{ field.label(for_=field.name) }}
+        {{ field(class_=class_, **kwargs) }}
+    {% endif %}
+{%- endmacro %}
+                {%- endraw -%}
+            </code>
+        </div>
+        <div id="panel-six" class="hidden" tabindex="-1">
+            <h2>Validators</h2>
+            <h3>Simple validators</h3>
+            <code class="code-wrapper">
+                {%- raw -%}
+from wtforms import Form, BooleanField, RadioField, SelectField, validators
+from wtforms.fields.html5 import EmailField
+
+class EmailOnlyForm(Form):
+    email = EmailField(label='Your Email',
+        validators=[
+            validators.Length(min=6, message=u'Your email address needs to be 6 or more characters.'),
+            validators.Email(message=u'The email address you entered has a problem - check for typos.')
+        ])
+                {%- endraw -%}
+            </code>
+        </div>
+        <div id="panel-seven" class="hidden" tabindex="-1">
+            <code class="code-wrapper">
+                {%- raw -%}
+class EmailAndCheckboxForm(EmailOnlyForm):
+    checkbox = BooleanField(label='I am not a robot',
+        validators=[validators.InputRequired(
+            message=u"Please verify you aren't a robot")])
+                {%- endraw -%}
+            </code>
+        </div>
+        <div id="panel-eight" class="hidden" tabindex="-1">
+            <h2>Building further</h2>
+            <code class="code-wrapper">
+                {%- raw -%}
+class EmailCheckboxRadioForm(EmailAndCheckboxForm):
+    radio = RadioField(label='How often do you wish to receive mail from us?',
+        validators=[validators.InputRequired(
+            message=u'Please select how often you wish to receive mail')],
+            choices=[(0, 'Hourly'), (1, 'Daily'), (2, 'Weekly'), (3, 'Fortnightly'), (4, 'Monthly')],
+        coerce=int)
+                {%- endraw -%}
+            </code>
+        </div>
+        <div id="panel-nine" class="hidden" tabindex="-1">
+            <h2>Final validator</h2>
+            <code class="code-wrapper">
+                {%- raw -%}
+class EmailCheckboxRadioSelectForm(EmailCheckboxRadioForm):
+    select = SelectField(label='Preferred email format:',
+        validators=[validators.InputRequired(
+            message=u'Please choose a preferred email format')],
+            choices=[(0, 'Newsletter'), (1, 'Digest'), (2, 'Article'), (3, 'Plain Text')],
+        coerce=int)
+                {%- endraw -%}
+            </code>
+        </div>
+        <div id="panel-ten" class="hidden" tabindex="-1">
+            <h2>Sign up for our newsletter!</h2>
+            {% from 'macros/render_flashes.html' import render_flashes as rf %}
+            {{ rf() }}
+            <form id="newsletter-form" method="post" action="" role="form" aria-label="Newsletter form">
+                {% from 'macros/form_helpers.html' import render_inputs as build %}
+                {% for field in form %}
+                    {{ build(field, autocomplete='off', **{'aria-required':'true','aria-invalid':'true','aria-describedby':field.id+'-error'}) }}
+                {% endfor %}
+
+                <button type="submit">Sign me up!
+                    <span aria-hidden="true">(ﾉ◕ヮ◕)ﾉ*:･ﾟ✧</span>
+                </button>
+            </form>
+        </div>
+    {% endblock %}
+    {% block footer %}
+    {% endblock %}

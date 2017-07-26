@@ -1,0 +1,35 @@
+{% extends "layout.html" %}
+    {% block header %}
+    {% endblock %}
+    {% block content %}
+    <div id="panel-one" tabindex="-1" class="current">
+        <h2>Intro to Accessibility</h2>
+        <h3>What is accessibility?</h3>
+        <p>According to the W3C, web accessibility means that people with disabilities can perceive, understand, navigate, and interact with the Web, and that they can contribute to the Web. </p>
+         <p>Many people who benefit from accessible websites use assistive technology like screen readers, which read web content out loud, or use keyboards to navigate websites.</p>
+     </div>
+    <div id="panel-two" tabindex="-1" class="hidden">
+        <p>Many disabilities affect access to the web, including
+        <dl class="collapsible">
+            <dt><button>Visual impairments</button></dt>
+            <dd class="hidden">This category includes blindness, low vision, and color-blindness</dd>
+            <dt><button>Cognitive disabilities</button></dt>
+            <dd class="hidden">People with cognitive disabilities may have difficulty reading web content, or may have general learning disabilities</dd>
+            <dt><button>Auditory disabilites</button></dt>
+            <dd class="hidden">Users with auditory disabilities may have impaired hearing</dd>
+            <dt><button>Physical disabilities</button></dt>
+            <dd class="hidden">People with physical disabilities may have motor impaiment, and may be unable to use a mouse to navigate. Some users may rely on keyboards for navigation and interaction</dd>
+            <dt><button>Speech impairments</button></dt>
+            <dd class="hidden">Speech impairments can make using voice-recognition features difficult. Users with speech impairments may have difficulty using technology like Siri or Alexa.</dd>
+        </dl>
+    </p>
+    </div>
+    <div id="panel-three" tabindex="-1" class="hidden">
+        <figure>
+          <figcaption><p>Many accessibility measures, both digital and analog, benefit people without disabilities: the curb cut is just one example of this.</p></figcaption>
+            <img src="../static/img/curb-cut.png" alt="photograph of a curb cut at a cross walk">
+        </figure>
+    </div>
+    {% endblock %}
+    {% block footer %}
+    {% endblock %}

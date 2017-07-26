@@ -1,0 +1,133 @@
+{% extends "layout.html" %}
+    {% block header %}
+    {% endblock %}
+    {% block content %}
+    <h2>Front-end handling</h2>
+    <div id="panel-one" class="current" tabindex="-1">
+        <h3>Let's JavaScript</h3>
+        <p>As a rule of thumb:</p>
+        <ul>
+            <li>Front and back-end validation should mirror each other</li>
+            <li>Validation should...</li>
+            <ul>
+                <li>not be intrusive</li>
+                <li>warn the user as soon as there's a problem</li>
+            </ul>
+        </ul>
+    </div>
+    <div id="panel-two" class="hidden" tabindex="-1">
+        <div class="center-wrapper">
+            <img src="{{ url_for('static', filename='img/What_are_birds.jpg') }}" alt="what are birds, we just don't know">
+        </div>
+    </div>
+    <div id="panel-three" class="hidden" tabindex="-1">
+        <h3>Contradictions</h3>
+        <p>When in doubt, aim for usability<p>
+        <ul>
+            <li>Allow browser validation to do some work for us</li>
+            <ul>
+                <li>For us, we'll avoid the required attribute</li>
+                <li>Still validate on submit (as our form is simple)</li>
+                <li>For forms with more variable (text) input, our suggestion: <a href="https://schier.co/blog/2014/12/08/wait-for-user-to-stop-typing-using-javascript.html">validate when the user stops typing</a></li>
+            </ul>
+            <li>Support browser validation with a bit of our own</li>
+            <li>Add ARIA as needed</li>
+        </ul>
+    </div>
+    <div id="panel-four" class="hidden" tabindex="-1">
+        <h3>Steps</h3>
+        <ul>
+            <li>Stop submit</li>
+            <li>Do basic validation</li>
+            <li>If problems, warn the user</li>
+            <li>If no problems, submit the form (and let back-end validation take over)</li>
+        </ul>
+    </div>
+    <div id="panel-five" class="hidden" tabindex="-1">
+        <h3>Validation function</h3>
+            <code>
+function onSubmit(event) {
+    clearErrors();
+    validateEmail();
+    validateCheckbox();
+    validateRadio();
+    // continued
+            </code>
+    </div>
+    <div id="panel-six" class="hidden" tabindex="-1">
+        <h3>Validation function</h3>
+        <code>
+    // continued
+    var errors = $('input[aria-invalid]');
+    if(errors.length) {
+        createErrorHeader();
+        focusFirstError();
+    }
+    else {
+        $('form').off('submit').submit();
+    }
+}
+        </code>
+    </div>
+    <div id="panel-seven" class="hidden" tabindex="-1">
+        <h3>Common trends</h3>
+            <code>
+[...]
+$(this).attr('aria-invalid', 'true');
+$(this).attr('aria-describedby', this.id + '-error');
+$(this).before(`&lt;span class="error-msg" id="${this.id + '-error'}"&gt;This is an error message&lt;/span&gt;`);
+[...]
+            </code>
+    </div>
+    <div id="panel-seven" class="hidden" tabindex="-1">
+        <h3>Variants</h3>
+        <code>
+// checkboxes
+if(!$(this).is(':checked')) {
+    $(this).attr('aria-invalid', 'true');
+    $(this).attr('aria-describedby', this.id + '-error');
+    $(this).parent().before(`&lt;span class="error-msg" id="${this.id + '-error'}"&gt;You must check this box to continue&lt;/span&gt;`);
+}
+        </code>
+    </div>
+    <div id="panel-eight" class="hidden" tabindex="-1">
+        <h3>Variants</h3>
+        <code>
+// radio buttons
+inputs.each(function(idx) {
+    if($(this).is(':checked')) {
+        didCheck = true;
+    }
+});
+        </code>
+    </div>
+    <div id="panel-nine" class="hidden" tabindex="-1">
+        <code>
+// in the following, "this" is a fieldset
+if(!didCheck) {
+    $(this).children('input[type="radio"]').attr('aria-invalid', 'true');
+    $(this).children('input[type="radio"]').attr('aria-describedby', this.id + '-error');
+    // put this error message above the group
+    $(this).before(`&lt;span class="error-msg" id="${this.id + '-error'}"&gt;Please select an option to continue&lt;/span&gt;`);
+}
+        </code>
+    </div>
+    <div id="panel-ten" class="hidden" tabindex="-1">
+        <h2>Form in Action</h2>
+        <script src="{{ url_for('static', filename='js/validation.js') }}"></script>
+        {% from 'macros/render_flashes.html' import render_flashes as rf %}
+        {{ rf() }}
+        <form id="newsletter-form" method="post" action="" role="form" aria-label="Newsletter form">
+            {% from 'macros/form_helpers.html' import render_inputs as build %}
+            {% for field in form %}
+                {{ build(field, autocomplete='off', **{'aria-required':'true','aria-invalid':'true','aria-describedby':field.id+'-error'}) }}
+            {% endfor %}
+
+            <button type="submit">Sign me up!
+                <span aria-hidden="true">(ﾉ◕ヮ◕)ﾉ*:･ﾟ✧</span>
+            </button>
+        </form>
+    </div>
+    {% endblock %}
+    {% block footer %}
+    {% endblock %}
