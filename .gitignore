@@ -4,4 +4,3 @@
 *.pyc
 *.swp
 app/config/settings.cfg
-app/static/css/style.scss.*
