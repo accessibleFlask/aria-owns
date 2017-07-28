@@ -3,7 +3,7 @@
 
 html {
     font-family: 'Roboto', sans-serif;
-    font-size: 26px;
+    font-size: 24px;
     line-height: 1.7;
 }
 
@@ -28,7 +28,9 @@ a {
     }
 }
 
-h1 { font-size: 2rem; 
+h1 { 
+    font-size: 1.75rem; 
+    padding: 0;
     a {
         border: none;
         text-decoration: none;
@@ -356,11 +358,11 @@ div[role="alert"] {
     @include order(1);
     border-bottom: 1px solid #bbb;
     margin: 0 auto 1rem auto;
-    padding: 1rem 0;
+    padding: .5rem;
     width: 100%;
 
     h1 {
-        margin: 0;
+        margin: 0 auto;
     }
 }
 
