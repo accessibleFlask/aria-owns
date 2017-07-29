@@ -1,6 +1,18 @@
 /**
  * Sets current in the sidebar and centers it within the scroll area
  */
+function focusNav () {
+    var sidebar = $('.site-sidebar nav');
+    sidebar.on('focusin',function(){
+        $(this).addClass('active');
+        $(this).parent().addClass('active');
+    });
+    sidebar.on('focusout', function(){
+        $(this).removeClass('active');
+        $(this).parent().removeClass('active');
+    });
+
+}
 
 function getCurrentSlide() {
     var url = window.location.href;
@@ -33,6 +45,7 @@ function centerScrollbar(active) {
 
 $(function() {
     var current = getCurrentSlide();
+    var focus = focusNav();
     if(current) {
         centerScrollbar(current);
     }
