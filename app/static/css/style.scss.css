@@ -67,9 +67,9 @@ code {
   white-space: pre-wrap; }
 
 fieldset {
-  border: 0;
+  border: 1px dotted #666;
   margin: 0;
-  padding: 0; }
+  padding: 1rem; }
 
 button {
   border-radius: 5px;
@@ -127,6 +127,8 @@ div[role="alert"] {
 
 .center-wrapper {
   text-align: center; }
+  .center-wrapper p {
+    text-align: left; }
 
 .site-wrap {
   display: -webkit-box;
@@ -339,7 +341,7 @@ div[role="alert"] {
   order: 1;
   border-bottom: 1px solid #bbb;
   margin: 0 auto 1rem auto;
-  padding: .5rem;
+  padding: 0 .5rem .5rem .5rem;
   width: 100%; }
   .site-header h1 {
     margin: 0 auto; }

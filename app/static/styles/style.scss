@@ -82,9 +82,9 @@ code {
 }
 
 fieldset {
-    border: 0;
+    border: 1px dotted #666;
     margin: 0;
-    padding: 0;
+    padding: 1rem;
 }
 
 button {
@@ -155,6 +155,11 @@ div[role="alert"] {
 
 .center-wrapper {
     text-align: center;
+
+    p {
+        text-align: left;
+    }
+
 }
 
 
@@ -365,7 +370,7 @@ div[role="alert"] {
     @include order(1);
     border-bottom: 1px solid #bbb;
     margin: 0 auto 1rem auto;
-    padding: .5rem;
+    padding: 0 .5rem .5rem .5rem;
     width: 100%;
 
     h1 {
