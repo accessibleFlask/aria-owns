@@ -405,12 +405,14 @@ div[role="alert"] {
     }
 
     &:hover,
-    .active {
+    &.active {
         height: 5rem;
 
         nav {
             left: 0;
+            top: 0;
             position: relative;
+
             ol {
                 list-style-type: none;
                 margin: 0;
